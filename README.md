@@ -1,6 +1,6 @@
-# UCSC Project
+# Assignments
 
-This repository contains the code base for the UCSC Project.
+This repository contains the code base for the Assignments Project.
 
 ## Prerequisites
 
