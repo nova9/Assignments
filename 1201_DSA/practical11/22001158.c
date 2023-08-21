@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
-#include <errno.h>
 
 typedef struct Node Node;
 struct Node {
