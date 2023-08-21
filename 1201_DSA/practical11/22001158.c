@@ -6,7 +6,8 @@
 typedef enum TraverseType {
     PREORDER,
     INORDER,
-    POSTORDER
+    POSTORDER,
+
 } TraverseType;
 
 typedef struct Node Node;
@@ -68,71 +69,6 @@ Node *create_node(int key) {
     return node;
 }
 
-void insert_node(Node **node, int key) {
-    if (*node == NULL) {
-        Node *new_node = create_node(key);
-        *node = new_node;
-        return;
-    }
-
-    if (key < (*node)->key) {
-        insert_node(&(*node)->left, key);
-    } else {
-        insert_node(&(*node)->right, key);
-    }
-}
-
-Node *search_node(Node *node, int key) {
-    if (node->key == key) {
-        return node;
-    }
-    if (key > node->key) {
-        return search_node(node->right, key);
-    } else {
-        return search_node(node->left, key);
-    }
-}
-
-Node *find_min(Node *node) {
-    if (node->left == NULL) {
-        return node;
-    }
-
-    return find_min(node->left);
-}
-
-Node *find_max(Node *node) {
-    if (node->right == NULL) {
-        return node;
-    }
-
-    return find_min(node->right);
-}
-
-void delete_node(Node **node, int key) {
-    if (*node == NULL) {
-        printf("Not Found\n");
-    } else if (key < (*node)->key) {
-        delete_node(&(*node)->left, key);
-    } else if (key > (*node)->key) {
-        delete_node(&(*node)->right, key);
-    } else if ((*node)->left && (*node)->right) {
-        Node *temp = find_max((*node)->left);
-        (*node)->key = temp->key;
-        delete_node(&(*node)->left, temp->key);
-    } else {
-        Node *temp = *node;
-        if ((*node)->left == NULL && (*node)->right == NULL) {
-            *node = NULL;
-        } else if ((*node)->left != NULL) {
-            *node = (*node)->left;
-        } else {
-            *node = (*node)->right;
-        }
-        free(temp);
-    }
-}
-
 int find_height(Node *node) {
     if (node == NULL) {
         return 0;
@@ -146,28 +82,6 @@ int find_height(Node *node) {
     } else {
         return right_height + 1;
     }
-}
-
-int find_size(Node *node) {
-    if (node == NULL) {
-        return 0;
-    }
-
-    return find_size(node->left) + find_size(node->right) + 1;
-}
-
-void mirror(Node *node) {
-    if (node != NULL) {
-        mirror(node->left);
-        mirror(node->right);
-        Node *temp = node->left;
-        node->left = node->right;
-        node->right = temp;
-    }
-}
-
-void view(Node *node) {
-
 }
 
 void print_tree(Node *tree, int indent) {
