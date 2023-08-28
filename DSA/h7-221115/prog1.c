@@ -235,31 +235,22 @@ Node *insert(Node *node, int key) {
 
 int main() {
     Node *root = NULL;
-    while (1) {
-        char input[300];
-        printf("Current tree: \n");
-        print_tree(root, 0);
-        printf("Enter a value to insert: ");
-        scanf("%s", input);
+    root = insert(root, 5);
+    root = insert(root, 45);
+    root = insert(root, 3);
+    root = insert(root, 100);
+    root = insert(root, 1);
 
-        errno = 0;
-        int number = strtol(input, NULL, 10);
-        if (errno != 0) {
-            break;
-        }
-        root = insert(root, number);
-    }
-
-//    delete_node(&root, 71);
+    delete_node(&root, 45);
 
     printf("size = %d\n", find_size(root));
     printf("height = %d\n", find_height(root));
+    printf("min = %d\n", find_min(root)->key);
+    printf("max = %d\n", find_max(root)->key);
 
-//    display(root, INORDER);
+    display(root, INORDER);
 
-//    mirror(root);
-//
-//    display(root, INORDER);
+    mirror(root);
 
-//    print_tree(root, 0);
+    display(root, INORDER);
 }
