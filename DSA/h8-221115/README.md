@@ -51,6 +51,6 @@ This function finds and returns the node with the smallest key in the tree roote
 This function inserts a new node with the given key into the AVL tree. After insertion, it balances the tree if required, using left or right rotations.
 
 ## main()
-In the main() function, an AVL tree root is created, and nodes with keys 3, 5, and 1 are inserted. Then the print_inorder function is called to print the in-order traversal of the tree.
+In the main() function, an AVL tree root is created, and nodes with keys 30, 5, 3, 18, 12, 16 and 1 are inserted. Then the print_inorder function is called to print the in-order traversal of the tree.
 This code doesn't have a function to delete nodes from the AVL tree. Also, it doesn't free the memory used by the nodes when the program ends, leading to memory leaks.
 Remember that this code works with integer keys but you can modify the key attribute of the Node structure to make it work with other datatypes.

@@ -9,9 +9,8 @@ struct Node {
 };
 
 void print_inorder(Node *node) {
-    if (node == NULL) {
+    if (node == NULL)
         return;
-    }
     print_inorder(node->left);
     printf("%d  ", node->key);
     print_inorder(node->right);
@@ -105,8 +104,12 @@ Node *insert(Node *node, int key) {
 int main() {
     Node *root = NULL;
 
-    root = insert(root, 3);
+    root = insert(root, 30);
     root = insert(root, 5);
+    root = insert(root, 3);
+    root = insert(root, 18);
+    root = insert(root, 12);
+    root = insert(root, 16);
     root = insert(root, 1);
 
     print_inorder(root);
