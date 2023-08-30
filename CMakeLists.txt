@@ -4,5 +4,5 @@ project(UCSC C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(UCSC
-        DSA/practical12/22001158.c
+        DSA/take_home_assignment_12/22001158_22001298.c
 )
