@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 // Define Student structure
 typedef struct Student {
     int id;
-    char name[50];
+    char *name;
     float mathMarks;
     float physicsMarks;
     float chemistryMarks;
@@ -14,21 +15,26 @@ enum SortCriteria {
     ID,
     MATH,
     PHY,
-    CHEM
+    CHEM,
+    TOTAL
 };
 enum SortOrder {
     ASC,
     DESC
 };
 
+float get_total(Student student) {
+    return student.chemistryMarks + student.physicsMarks + student.mathMarks;
+}
+
 // Function to print the array of students
 void printStudentArray(Student *students, int length) {
-    printf("-------------------------------------------------------------------------------------------\n");
-    printf("ID\t\tName\t\tMath\t\tPhysics\t\tChemistry\tTotal Marks\n");
-    printf("-------------------------------------------------------------------------------------------\n");
+    printf("------------------------------------------------------------------------------------------------------------\n");
+    printf("ID\t\t%-20s\t\tMath\t\tPhysics\t\tChemistry\tTotal Marks\n", "Name");
+    printf("------------------------------------------------------------------------------------------------------------\n");
     for (int i = 0; i < length; i++) {
         float total = students[i].mathMarks + students[i].physicsMarks + students[i].chemistryMarks;
-        printf("%d\t\t%s\t\t%.1f\t\t%.1f\t\t%.1f\t\t%.1f\n",
+        printf("%d\t\t%-20s\t\t%.1f\t\t%.1f\t\t%.1f\t\t%.1f\n",
                students[i].id,
                students[i].name,
                students[i].mathMarks,
@@ -40,112 +46,137 @@ void printStudentArray(Student *students, int length) {
 }
 
 // Function to sort an array of students
-void selectionSortStudent(Student *student, int length, enum SortCriteria sortCriteria, enum SortOrder sortOrder) {
+void selectionSortStudent(Student *students, int length, enum SortCriteria sortCriteria, enum SortOrder sortOrder) {
     // Switch based on sort criteria
     switch (sortCriteria) {
         case ID:
             // Selection sort based on ID
             for (int i = 0; i < length; i++) {
-                int selected = student[i].id;
+                int selected = students[i].id;
                 size_t pos = i;
                 for (int j = i + 1; j < length; j++) {
                     // Switch based on sort order
                     switch (sortOrder) {
                         case ASC:
                             // Ascending order
-                            if (selected > student[j].id) {
-                                selected = student[j].id;
+                            if (selected > students[j].id) {
+                                selected = students[j].id;
                                 pos = j;
                             }
                             break;
                         case DESC:
                             // Descending order
-                            if (selected < student[j].id) {
-                                selected = student[j].id;
+                            if (selected < students[j].id) {
+                                selected = students[j].id;
                                 pos = j;
                             }
                             break;
                     }
                 }
                 // Swap students
-                Student temp = student[i];
-                student[i] = student[pos];
-                student[pos] = temp;
+                Student temp = students[i];
+                students[i] = students[pos];
+                students[pos] = temp;
             }
             break;
         case MATH:
             for (int i = 0; i < length; i++) {
-                float selected = student[i].mathMarks;
+                float selected = students[i].mathMarks;
                 size_t pos = i;
                 for (int j = i + 1; j < length; j++) {
                     switch (sortOrder) {
                         case ASC:
-                            if (selected > student[j].mathMarks) {
-                                selected = student[j].mathMarks;
+                            if (selected > students[j].mathMarks) {
+                                selected = students[j].mathMarks;
                                 pos = j;
                             }
                             break;
                         case DESC:
-                            if (selected < student[j].mathMarks) {
-                                selected = student[j].mathMarks;
+                            if (selected < students[j].mathMarks) {
+                                selected = students[j].mathMarks;
                                 pos = j;
                             }
                             break;
                     }
                 }
-                Student temp = student[i];
-                student[i] = student[pos];
-                student[pos] = temp;
+                Student temp = students[i];
+                students[i] = students[pos];
+                students[pos] = temp;
             }
             break;
         case PHY:
             for (int i = 0; i < length; i++) {
-                float selected = student[i].physicsMarks;
+                float selected = students[i].physicsMarks;
                 size_t pos = i;
                 for (int j = i + 1; j < length; j++) {
                     switch (sortOrder) {
                         case ASC:
-                            if (selected > student[j].physicsMarks) {
-                                selected = student[j].physicsMarks;
+                            if (selected > students[j].physicsMarks) {
+                                selected = students[j].physicsMarks;
                                 pos = j;
                             }
                             break;
                         case DESC:
-                            if (selected < student[j].physicsMarks) {
-                                selected = student[j].physicsMarks;
+                            if (selected < students[j].physicsMarks) {
+                                selected = students[j].physicsMarks;
                                 pos = j;
                             }
                             break;
                     }
                 }
-                Student temp = student[i];
-                student[i] = student[pos];
-                student[pos] = temp;
+                Student temp = students[i];
+                students[i] = students[pos];
+                students[pos] = temp;
             }
             break;
         case CHEM:
             for (int i = 0; i < length; i++) {
-                float selected = student[i].chemistryMarks;
+                float selected = students[i].chemistryMarks;
                 size_t pos = i;
                 for (int j = i + 1; j < length; j++) {
                     switch (sortOrder) {
                         case ASC:
-                            if (selected > student[j].chemistryMarks) {
-                                selected = student[j].chemistryMarks;
+                            if (selected > students[j].chemistryMarks) {
+                                selected = students[j].chemistryMarks;
                                 pos = j;
                             }
                             break;
                         case DESC:
-                            if (selected < student[j].chemistryMarks) {
-                                selected = student[j].chemistryMarks;
+                            if (selected < students[j].chemistryMarks) {
+                                selected = students[j].chemistryMarks;
                                 pos = j;
                             }
                             break;
                     }
                 }
-                Student temp = student[i];
-                student[i] = student[pos];
-                student[pos] = temp;
+                Student temp = students[i];
+                students[i] = students[pos];
+                students[pos] = temp;
+            }
+            break;
+        case TOTAL:
+            for (int i = 0; i < length; i++) {
+                float selected = get_total(students[i]);
+                size_t pos = i;
+                for (int j = i + 1; j < length; j++) {
+                    switch (sortOrder) {
+                        case ASC:
+                            if (selected > get_total(students[j])) {
+                                selected = get_total(students[j]);
+                                pos = j;
+                            }
+                            break;
+                        case DESC:
+                            if (selected < get_total(students[j])) {
+                                selected = get_total(students[j]);
+                                pos = j;
+                            }
+                            break;
+                    }
+                }
+                Student temp = students[i];
+                students[i] = students[pos];
+                students[pos] = temp;
             }
             break;
         default:
@@ -154,21 +185,45 @@ void selectionSortStudent(Student *student, int length, enum SortCriteria sortCr
     }
 }
 
+void get_students(Student *students, int number_of_students) {
+    for (int i = 0; i < number_of_students; i++) {
+        printf("ID: ");
+        int id;
+        scanf("%d", &id);
+
+        printf("Name: ");
+        char *name = malloc(sizeof(char) * 50);
+        scanf("%s", name);
+
+        printf("Mathematics: ");
+        float mathematics;
+        scanf("%f", &mathematics);
+
+        printf("Physics: ");
+        float physics;
+        scanf("%f", &physics);
+
+        printf("Chemistry: ");
+        float chemistry;
+        scanf("%f", &chemistry);
+
+        Student student = {id, name, mathematics, physics, chemistry};
+        students[i] = student;
+    }
+}
+
 int main() {
-    // Define and initialize array of students
-    Student students[] = {
-            {2,  "Ravindu", 45, 67, 98},
-            {1,  "Saman",   45, 76, 89},
-            {32, "Madusha", 85, 27, 68},
-            {4,  "Daham",   85, 97, 48},
-    };
+    printf("How many students? ");
+    int number_of_students;
+    scanf("%d", &number_of_students);
 
-    // Calculate number of students
-    int length = sizeof(students) / sizeof(Student);
+    Student students[number_of_students];
 
-    // Sort and print students
-    selectionSortStudent(students, length, ID, ASC);
-    selectionSortStudent(students, length, MATH, DESC);
+    get_students(students, number_of_students);
 
-    printStudentArray(students, length);
+    // First students are sorted
+    selectionSortStudent(students, number_of_students, ID, ASC);
+    selectionSortStudent(students, number_of_students, TOTAL, DESC);
+
+    printStudentArray(students, number_of_students);
 }
